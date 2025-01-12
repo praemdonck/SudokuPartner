@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<!-- <style>
+body {background-color: powderblue; font-family: Verdana;}
+h1   {color: blue; text-align:center}
+p    {color: red; text-align:left}
+</style> -->
+
+<style>
+/* table, th, td { */
+/* .table_border {
+  border:1px solid black;
+  border-collapse: collapse;
+} */
+
+/* .table_border_1px {
+  border:2px solid black;
+  border-collapse: collapse;
+  text-align: center;
+} */
+
+.sudoku_table {
+    /* border:3px solid red; */
+    border: none;
+    border-collapse: collapse;
+    /* width: 600px; */
+    width: 480px;
+}
+.sudoku_table_row {
+    /* height: 200px; */
+    height: 160px;
+}
+
+.sudoku_box {
+    border:1.5px solid black;
+    border-collapse: collapse;
+    padding: 0px;
+}
+
+.box_table {
+    border:none;
+    border-collapse: collapse;
+    table-layout: fixed;
+}
+
+.sudoku_cell {
+    table-layout: fixed;
+    border:1.5px solid black;
+    /* border: none; */
+    padding: 0px;
+    border-collapse: collapse;
+    text-align: center;
+    font-family: verdana;
+    font-size: 30px;
+}
+
+.cell_candidate {
+    table-layout: fixed;
+    border: none;
+    padding: 0px;
+    border-collapse: collapse;
+    text-align: center;
+    font-family: verdana;
+    /* font-size: 12px; */
+    font-size: 15px;
+}
+
+</style>
+
+<title>Sudoku Board</title>
+</head>
+<body>
+    <table id="sudokuBoard", class="sudoku_table">
+        <tr class="sudoku_table_row">
+            <td id="BOX_0" style="width: 33.33%;" class="sudoku_box"></td>
+            <td id="BOX_1" style="width: 33.33%;" class="sudoku_box"></td>
+            <td id="BOX_2" style="width: 33.33%;" class="sudoku_box"></td>
+        </tr>
+        <tr class="sudoku_table_row">
+            <td id="BOX_3" class="sudoku_box"></td>
+            <td id="BOX_4" class="sudoku_box"></td>
+            <td id="BOX_5" class="sudoku_box"></td>
+        </tr>
+        <tr class="sudoku_table_row">
+            <td id="BOX_6" class="sudoku_box"></td>
+            <td id="BOX_7" class="sudoku_box"></td>
+            <td id="BOX_8" class="sudoku_box"></td>
+        </tr>
+    </table>
+    <p id="logParagraph">some text</p>
+    <!-- <p id="testString" style=" font-family: verdana; font-size: 30px; width:auto; height:auto; position:absolute">123456789</p> -->
+    <!-- <button id="btnRndColor"> Random Color</button> -->
+    <script src="sudoku_map.js"></script>
+    <script src="sudoku_board.js"></script>
+</body>
+
