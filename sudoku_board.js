@@ -1,28 +1,19 @@
 const sudokuBoard = document.getElementById("sudokuBoard");
 sudokuBoard.addEventListener("contextmenu", e => e.preventDefault());
 
-
 function generateSudokuCells(box, boxHeight) {
     const cellHeight = boxHeight / 3;
 
     let cellsHTML = `
-<table style="width:100%;" class="box_table">
-<tr style="line-height: ${cellHeight-1}px; height: ${cellHeight}px;">
-<td id="CELL_${SudokuMap.boxIndices[box][0]}" class="sudoku_cell"></td>
-<td id="CELL_${SudokuMap.boxIndices[box][1]}" class="sudoku_cell"></td>
-<td id="CELL_${SudokuMap.boxIndices[box][2]}" class="sudoku_cell"></td>
-</tr>
-<tr style="line-height: ${cellHeight-1}px; height: ${cellHeight}px;">
-<td id="CELL_${SudokuMap.boxIndices[box][3]}" class="sudoku_cell"></td>
-<td id="CELL_${SudokuMap.boxIndices[box][4]}" class="sudoku_cell"></td>
-<td id="CELL_${SudokuMap.boxIndices[box][5]}" class="sudoku_cell"></td>
-</tr>
-<tr style="line-height: ${cellHeight-1}px; height: ${cellHeight}px;">
-<td id="CELL_${SudokuMap.boxIndices[box][6]}" class="sudoku_cell"></td>
-<td id="CELL_${SudokuMap.boxIndices[box][7]}" class="sudoku_cell"></td>
-<td id="CELL_${SudokuMap.boxIndices[box][8]}" class="sudoku_cell"></td>
-</tr>
-</table>`
+    <div id="CELL_${SudokuMap.boxIndices[box][0]}"></div>
+    <div id="CELL_${SudokuMap.boxIndices[box][1]}"></div>
+    <div id="CELL_${SudokuMap.boxIndices[box][2]}"></div>
+    <div id="CELL_${SudokuMap.boxIndices[box][3]}"></div>
+    <div id="CELL_${SudokuMap.boxIndices[box][4]}"></div>
+    <div id="CELL_${SudokuMap.boxIndices[box][5]}"></div>
+    <div id="CELL_${SudokuMap.boxIndices[box][6]}"></div>
+    <div id="CELL_${SudokuMap.boxIndices[box][7]}"></div>
+    <div id="CELL_${SudokuMap.boxIndices[box][8]}"></div>`
 
     return cellsHTML;
 }
@@ -235,5 +226,5 @@ for (let i=0; i<81; i++)
     cellValue = cellValue === "0" ? "" : cellValue;
     cellSetValue(i, cellValue);
 }
-fillCellCandidatesType1(72, ['','','','','','',7,8,9])
+// fillCellCandidatesType1(72, ['','','','','','',7,8,9])
 fillCellCandidatesType2(73, "123")

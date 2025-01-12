@@ -1,98 +1,87 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-
-<!-- <style>
-body {background-color: powderblue; font-family: Verdana;}
-h1   {color: blue; text-align:center}
-p    {color: red; text-align:left}
-</style> -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
-/* table, th, td { */
-/* .table_border {
-  border:1px solid black;
-  border-collapse: collapse;
-} */
 
-/* .table_border_1px {
-  border:2px solid black;
-  border-collapse: collapse;
+* {
+  box-sizing: border-box;
+}
+
+.grid-container {
+    border:3px solid red;
+    display: grid;
+    grid-template-columns: 33% auto 33%;
+    grid-template-rows: 33% auto 33%;
+    gap: 3px;
+    background-color: black;
+    padding: 5px;
+    width: 600px;
+    height: 600px;
+    /* position: absolute; */
+    font-family: verdana; 
+}
+
+.grid-container > div {
   text-align: center;
-} */
-
-.sudoku_table {
-    /* border:3px solid red; */
-    border: none;
-    border-collapse: collapse;
-    /* width: 600px; */
-    width: 480px;
-}
-.sudoku_table_row {
-    /* height: 200px; */
-    height: 160px;
+  padding: 0;
+  font-size: 30px;
 }
 
-.sudoku_box {
-    border:1.5px solid black;
-    border-collapse: collapse;
-    padding: 0px;
+.box-container {
+    border: None;
+    display: grid;
+    grid-template-columns: 32% auto 32%;
+    grid-template-rows: 32% auto 32%;
+    gap: 2px;
+    background-color: grey;
+    padding: 20px;
+    width: 100%;
+    height: 100%;
 }
 
-.box_table {
-    border:none;
-    border-collapse: collapse;
-    table-layout: fixed;
-}
-
-.sudoku_cell {
-    table-layout: fixed;
-    border:1.5px solid black;
-    /* border: none; */
-    padding: 0px;
-    border-collapse: collapse;
+.box-container > div {
+    border: None;
+    background-color: white;
     text-align: center;
-    font-family: verdana;
+    padding-top: 25%;
     font-size: 30px;
+    line-height: 30px;
 }
 
-.cell_candidate {
-    table-layout: fixed;
-    border: none;
-    padding: 0px;
-    border-collapse: collapse;
-    text-align: center;
-    font-family: verdana;
-    /* font-size: 12px; */
-    font-size: 15px;
-}
 
+@media only screen and (max-width: 616px) {
+    body {
+        background-color: lightblue;
+    }
+    .grid-container {
+        width: 97vw;
+        height: 97vw;
+    }
+}
 </style>
 
 <title>Sudoku Board</title>
 </head>
 <body>
-    <table id="sudokuBoard", class="sudoku_table">
-        <tr class="sudoku_table_row">
-            <td id="BOX_0" style="width: 33.33%;" class="sudoku_box"></td>
-            <td id="BOX_1" style="width: 33.33%;" class="sudoku_box"></td>
-            <td id="BOX_2" style="width: 33.33%;" class="sudoku_box"></td>
-        </tr>
-        <tr class="sudoku_table_row">
-            <td id="BOX_3" class="sudoku_box"></td>
-            <td id="BOX_4" class="sudoku_box"></td>
-            <td id="BOX_5" class="sudoku_box"></td>
-        </tr>
-        <tr class="sudoku_table_row">
-            <td id="BOX_6" class="sudoku_box"></td>
-            <td id="BOX_7" class="sudoku_box"></td>
-            <td id="BOX_8" class="sudoku_box"></td>
-        </tr>
-    </table>
+    <div id="sudokuBoard" class="grid-container">
+        <div id="BOX_0" class="box-container"></div>
+        <div id="BOX_1" class="box-container"></div>
+        <div id="BOX_2" class="box-container"></div>
+        <div id="BOX_3" class="box-container"></div>
+        <div id="BOX_4" class="box-container"></div>
+        <div id="BOX_5" class="box-container"></div>
+        <div id="BOX_6" class="box-container"></div>
+        <div id="BOX_7" class="box-container"></div>
+        <div id="BOX_8" class="box-container"></div>
+    </div>
+
     <p id="logParagraph">some text</p>
     <!-- <p id="testString" style=" font-family: verdana; font-size: 30px; width:auto; height:auto; position:absolute">123456789</p> -->
     <!-- <button id="btnRndColor"> Random Color</button> -->
     <script src="sudoku_map.js"></script>
     <script src="sudoku_board.js"></script>
+
 </body>
 
