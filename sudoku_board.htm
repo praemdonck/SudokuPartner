@@ -19,7 +19,6 @@
     width: 600px;
     height: 600px;
     /* position: absolute; */
-    font-family: verdana; 
 }
 
 .grid-container > div {
@@ -27,6 +26,7 @@
     text-align: center;
     padding: 0;
     font-size: 30px;
+    font-family: arial; 
 }
 
 .box-container {
@@ -40,12 +40,31 @@
     height: 100%;
 }
 
-.box-container > div {
+/* .box-container > div { */
+.cellDefault {
     border: solid 1px black;
     text-align: center;
     padding-top: 25%;
     font-size: 30px;
     line-height: 30px;
+}
+
+.cellCandidateType1 {
+    border: solid 1px black;
+    display: grid;
+    grid-template-columns: 33.33% 33.33% 33.33%;
+    grid-template-rows: 33.33% 33.33% 33.33%;
+    gap: 0px;
+    padding: 5px;
+    width: 100%;
+    height: 100%;
+}
+
+.candidateType1 {
+    font-size: 13px; 
+    line-height: 10px;
+    padding-top: 5px;
+    font-family: arial; 
 }
 
 
@@ -56,27 +75,87 @@
     .grid-container {
         width: 97vw;
         height: 97vw;
+        border:1.5px solid black;
     }
-}
+
+    .cellDefault {
+        border: solid 0.5px grey;
+        text-align: center;
+        padding-top: 25%;
+        font-size: 26px;
+        line-height: 26px;
+    }
+
+    .grid-container > div {
+        border:0.75px solid black;
+    }
+
+    .cellCandidateType1 {
+        border: solid 0.5px grey;
+        display: grid;
+        grid-template-columns: 33.33% 33.33% 33.33%;
+        grid-template-rows: 33.33% 33.33% 33.33%;
+        gap: 0px;
+        padding: 0px;
+        width: 100%;
+        height: 100%;
+    }
+
+    .candidateType1 {
+        font-size: 13px; 
+        line-height: 10px;
+        padding-top: 1.5px;
+    }
 </style>
 
 <title>Sudoku Board</title>
 </head>
-<body>
-    <div id="sudokuBoard" class="grid-container">
-        <div id="BOX_0" class="box-container"></div>
-        <div id="BOX_1" class="box-container"></div>
-        <div id="BOX_2" class="box-container"></div>
-        <div id="BOX_3" class="box-container"></div>
-        <div id="BOX_4" class="box-container"></div>
-        <div id="BOX_5" class="box-container"></div>
-        <div id="BOX_6" class="box-container"></div>
-        <div id="BOX_7" class="box-container"></div>
-        <div id="BOX_8" class="box-container"></div>
+<body id="body">
+    <div style="display: flex; 
+                flex-direction: row; 
+                flex-wrap: wrap; 
+                /* justify-content: center; */
+                /* justify-content: space-around; */
+                justify-content: space-evenly;
+                align-items: center;
+                /* background-color: DodgerBlue; */
+                ">
+        <div id="sudokuBoard" class="grid-container">
+            <div id="BOX_0" class="box-container"></div>
+            <div id="BOX_1" class="box-container"></div>
+            <div id="BOX_2" class="box-container"></div>
+            <div id="BOX_3" class="box-container"></div>
+            <div id="BOX_4" class="box-container"></div>
+            <div id="BOX_5" class="box-container"></div>
+            <div id="BOX_6" class="box-container"></div>
+            <div id="BOX_7" class="box-container"></div>
+            <div id="BOX_8" class="box-container"></div>
+        </div>
+        <div style="width: 400px; 
+                    height: 100px; 
+                    margin: 30px;
+                    border:1px solid black;
+                    display: grid;
+                    gap: 3px;
+                    padding: 3px;
+                    grid-template-columns: auto auto auto auto auto auto auto auto auto;
+                    grid-template-rows: 50% auto;
+                    background-color: yellow;">
+
+            <button id="BTN_1" type="button" style="grid-row: 2;">1</button>
+            <button id="BTN_2" type="button" style="grid-row: 2;">2</button>
+            <button id="BTN_3" type="button" style="grid-row: 2;">3</button>
+            <button id="BTN_4" type="button" style="grid-row: 2;">4</button>
+            <button id="BTN_5" type="button" style="grid-row: 2;">5</button>
+            <button id="BTN_6" type="button" style="grid-row: 2;">6</button>
+            <button id="BTN_7" type="button" style="grid-row: 2;">7</button>
+            <button id="BTN_8" type="button" style="grid-row: 2;">8</button>
+            <button id="BTN_9" type="button" style="grid-row: 2;">9</button>
+        </div>
     </div>
 
     <p id="logParagraph">some text</p>
-    <!-- <p id="testString" style=" font-family: verdana; font-size: 30px; width:auto; height:auto; position:absolute">123456789</p> -->
+    <!-- <p id="testString" style=" font-family: arial; font-size: 30px; width:auto; height:auto; position:absolute">123456789</p> -->
     <!-- <button id="btnRndColor"> Random Color</button> -->
     <script src="sudoku_map.js"></script>
     <script src="sudoku_board.js"></script>
