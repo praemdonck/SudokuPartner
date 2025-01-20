@@ -20,8 +20,13 @@ function generateSudokuCells(box, boxHeight) {
     return cellsHTML;
 }
 
-function fillCellCandidatesType1(cell, candidates) {
-    
+function fillCellCandidatesType1(cell, candidatesSet)
+{
+    let candidates = ["", "", "", "", "", "", "", "", ""];
+    for (const candidate of candidatesSet) 
+        if (candidate >=1 && candidate <= 9)
+            candidates[candidate-1] = candidate;
+
     let candidateHTML = `
     <div class="candidateType1">${candidates[0]}</div>
     <div class="candidateType1">${candidates[1]}</div>
@@ -37,8 +42,10 @@ function fillCellCandidatesType1(cell, candidates) {
     cellsArray[cell].innerHTML = candidateHTML;
 }
 
-function fillCellCandidatesType2(cell, candidates)
+function fillCellCandidatesType2(cell, candidatesSet)
 {
+    const candidates = Array.from(candidatesSet).toSorted().join('');
+
     const cellWidth = cellsArray[cell].clientWidth;
     let fontSize = 15
     if (fontSize * 0.65 * candidates.length > cellWidth)
@@ -205,6 +212,27 @@ function cellSetValue(cell, value)
     cellsArray[cell].className = 'cellDefault';
 }
 
+// cellData can have the following properties:
+// backgroundColor -> a valid html color
+// valueColor -> a valid html color
+// value -> value between 0 to 9 or empty string (0 is treated as the empty string)
+// candidateType1 -> set of candidated between 1 and 9
+// candidateType2 -> set of candidated between 1 and 9
+function setCell(cell, cellData)
+{
+    if (cellData.hasOwnProperty('backgroundColor'))
+        cellSetBackgroundColor(cell, cellData.backgroundColor);
+
+    if (cellData.hasOwnProperty('value'))
+        cellSetValue(cell, cellData.value);
+
+    if (cellData.hasOwnProperty('candidatesType1'))
+        fillCellCandidatesType1(cell, cellData.candidatesType1);
+
+    if (cellData.hasOwnProperty('candidatesType2'))
+        fillCellCandidatesType1(cell, cellData.candidatesType2);
+}
+
 
 
 
@@ -260,9 +288,10 @@ for (let i=0; i<81; i++)
     cellValue = cellValue === "0" ? "" : cellValue;
     cellSetValue(i, cellValue);
 }
-fillCellCandidatesType1(72, ['','',3,'',5,'',7,8,9])
-fillCellCandidatesType2(73, "123")
-fillCellCandidatesType2(74, "12345")
+// fillCellCandidatesType1(72, ['','',3,'',5,'',7,8,9])
+fillCellCandidatesType1(72, new Set([3,5,7,8,9]))
+fillCellCandidatesType2(73, new Set([1,2,6]))
+fillCellCandidatesType2(74, new Set([1,2,3,4,5,6]))
 
 
 
