@@ -80,7 +80,8 @@ function addMouseEventListener(elementId, event)
 
         if (event === 'mousedown')
         {
-            selectionFirstCell(onCell);
+            if (typeof selectionFirstCell === 'function')
+                selectionFirstCell(onCell);
             lastSelectedCell = onCell;
         }
         if (event === 'mouseup')
@@ -89,7 +90,8 @@ function addMouseEventListener(elementId, event)
         }
         if (event === 'mousemove' && onCell !== lastSelectedCell && lastSelectedCell !== undefined)
         {
-            selectionNextCell(onCell);
+            if (typeof selectionNextCell === 'function')
+                selectionNextCell(onCell);
             lastSelectedCell = onCell;
         }
 
@@ -128,12 +130,14 @@ function addTouchEventListener(elementId, event)
 
         if (event === 'touchstart')
         {
-            selectionFirstCell(onCell);
+            if (typeof selectionFirstCell === 'function')
+                selectionFirstCell(onCell);
             lastSelectedCell = onCell;
         }
         if (event === 'touchmove' && onCell !== lastSelectedCell && lastSelectedCell !== undefined)
         {
-            selectionNextCell(onCell);
+            if (typeof selectionNextCell === 'function')
+                selectionNextCell(onCell);
             lastSelectedCell = onCell;
         }
 
@@ -299,23 +303,5 @@ fillCellCandidatesType2(74, new Set([1,2,3,4,5,6]))
 // Selection Start -> cell Id : call when the first/only cell is selected
 // Cell Selected -> cell Id :  call when more cells are selected after first cell
 
-let selectedCellsSet = new Set();
-let selectionFirstCell = cellId =>
-{
-    selectedCellsSet.clear();
-    selectedCellsSet.add(cellId);
-    console.log("selectionFirstCell " + cellId);
-
-    for (cell of cellsArray)
-        cell.style.backgroundColor = ""
-
-    cellsArray[cellId].style.backgroundColor = "lavender"
-};
-
-// function selectionNextCell(cellId)
-let selectionNextCell = cellId =>
-{
-    selectedCellsSet.add(cellId);
-    console.log("selectionNextCell " + cellId);
-    cellsArray[cellId].style.backgroundColor = "lavender"
-}
+let selectionFirstCell = undefined;
+let selectionNextCell = undefined;
