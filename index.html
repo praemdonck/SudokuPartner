@@ -9,102 +9,93 @@
   box-sizing: border-box;
 }
 
-.grid-container {
-    border:1.75px solid black;
-    display: grid;
-    grid-template-columns: 33.33% auto 33.33%;
-    grid-template-rows: 33.33% auto 33.33%;
-    gap: 0px;
-    padding: 0px;
-    width: 400px;
+.main-board {
+    /* box-sizing: content-box; */
+    border: 3px solid black; 
+    padding: 0px; 
+    width: 400px; 
     height: 400px;
-    /* position: absolute; */
 }
 
-.grid-container > div {
-    border: 0.5px solid black;
-    text-align: center;
-    padding: 0;
-    font-size: 30px;
-    font-family: arial; 
+.board-row:after {
+  clear: both;
+  display: table;
 }
 
-.box-container {
-    border: None;
-    display: grid;
-    grid-template-columns: 33.33% auto 33.33%;
-    grid-template-rows: 33.33% auto 33.33%;
-    gap: 0px;
-    padding: 0px;
-    width: 100%;
-    height: 100%;
+.board-row {
+  height: 33.3333%;
 }
 
-/* .box-container > div { */
-.cellDefault {
-    border: solid 0.5px black;
-    text-align: center;
-    padding-top: 15%;
-    font-size: 30px;
-    line-height: 30px;
+
+.box {
+  background: #fff;
+  border: 1px solid black;
+  float: left;
+  height: 100%; 
+  width: 33.33333%;
+}
+
+.cell {
+  background: #fff;
+  border: 0.5px solid grey;
+  float: left;
+  font-size: 24px;
+  line-height: 30px;
+  height: 100%; 
+  text-align: center;
+  width: 33.33333%;
+  font-family: arial;
+  display: inline-flex; 
+  align-items: center; 
+  justify-content: center;
 }
 
 .cellCandidateType1 {
-    border: solid 0.5px black;
-    display: grid;
-    grid-template-columns: 33.33% 33.33% 33.33%;
-    grid-template-rows: 33.33% 33.33% 33.33%;
-    gap: 0px;
-    padding: 0px;
-    width: 100%;
-    height: 100%;
-}
+  background: #fff;
+  border: 0.5px solid grey;
+  float: left;
+  height: 100%;      /* of box row */
+  width: 33.33333%;  /* of box */
 
+}
 .candidateType1 {
+    float: left;
+    height: 100%;      /* of cell row */
+    width: 33.33333%;  /* of cell */
     font-size: 13px; 
     line-height: 10px;
-    padding-top: 2px;
     font-family: arial; 
+
+    display: inline-flex; 
+    align-items: center; 
+    justify-content: center;
 }
+
 
 
 @media only screen and (max-width: 430px) {
     body {
         background-color: whitesmoke;
     }
-    .grid-container {
+    .main-board {
         width: 97vw;
-        height: 97vw;
-        border:1.5px solid black;
+        height: 92vw;
+        border: 2px solid black;
     }
 
-    .cellDefault {
+    .cell{
         border: solid 0.5px grey;
-        text-align: center;
-        padding-top: 25%;
-        font-size: 26px;
-        line-height: 26px;
+        font-size: 20px;
+        line-height: 20px;
     }
 
-    .grid-container > div {
+    /* .main-board > div {
         border:0.75px solid black;
-    }
-
-    .cellCandidateType1 {
-        border: solid 0.5px grey;
-        display: grid;
-        grid-template-columns: 33.33% 33.33% 33.33%;
-        grid-template-rows: 33.33% 33.33% 33.33%;
-        gap: 0px;
-        padding: 0px;
-        width: 100%;
-        height: 100%;
-    }
+    } */
 
     .candidateType1 {
         font-size: 13px; 
         line-height: 10px;
-        padding-top: 1.5px;
     }
 </style>
 
@@ -120,17 +111,25 @@
                 align-items: center;
                 /* background-color: DodgerBlue; */
                 ">
-        <div id="sudokuBoard" class="grid-container">
-            <div id="BOX_0" class="box-container"></div>
-            <div id="BOX_1" class="box-container"></div>
-            <div id="BOX_2" class="box-container"></div>
-            <div id="BOX_3" class="box-container"></div>
-            <div id="BOX_4" class="box-container"></div>
-            <div id="BOX_5" class="box-container"></div>
-            <div id="BOX_6" class="box-container"></div>
-            <div id="BOX_7" class="box-container"></div>
-            <div id="BOX_8" class="box-container"></div>
+        <div id="sudokuBoard" class="main-board">
+            <div class="board-row">
+                <div id="BOX_0" class="box"></div>
+                <div id="BOX_1" class="box"></div>
+                <div id="BOX_2" class="box"></div>
+            </div>
+            <div class="board-row">
+                <div id="BOX_3" class="box"></div>
+                <div id="BOX_4" class="box"></div>
+                <div id="BOX_5" class="box"></div>
+            </div>
+            <div class="board-row">
+                <div id="BOX_6" class="box"></div>
+                <div id="BOX_7" class="box"></div>
+                <div id="BOX_8" class="box"></div>
+            </div>
         </div>
+
+
         <div style="width: 600px; 
                     height: 100px; 
                     margin: 30px;

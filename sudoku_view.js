@@ -3,19 +3,25 @@ sudokuBoard.addEventListener("contextmenu", e => e.preventDefault());
 const body = document.getElementById("body");
 body.addEventListener("contextmenu", e => e.preventDefault());
 
-function generateSudokuCells(box, boxHeight) {
-    const cellHeight = boxHeight / 3;
+function generateSudokuCells(box) {
+    // const cellHeight = boxHeight / 3;
 
     let cellsHTML = `
-    <div id="CELL_${SudokuMap.boxIndices[box][0]}" class="cellDefault"></div>
-    <div id="CELL_${SudokuMap.boxIndices[box][1]}" class="cellDefault"></div>
-    <div id="CELL_${SudokuMap.boxIndices[box][2]}" class="cellDefault"></div>
-    <div id="CELL_${SudokuMap.boxIndices[box][3]}" class="cellDefault"></div>
-    <div id="CELL_${SudokuMap.boxIndices[box][4]}" class="cellDefault"></div>
-    <div id="CELL_${SudokuMap.boxIndices[box][5]}" class="cellDefault"></div>
-    <div id="CELL_${SudokuMap.boxIndices[box][6]}" class="cellDefault"></div>
-    <div id="CELL_${SudokuMap.boxIndices[box][7]}" class="cellDefault"></div>
-    <div id="CELL_${SudokuMap.boxIndices[box][8]}" class="cellDefault"></div>`
+        <div class="board-row">
+          <div id="CELL_${SudokuMap.boxIndices[box][0]}" class="cell"></div>
+          <div id="CELL_${SudokuMap.boxIndices[box][1]}" class="cell"></div>
+          <div id="CELL_${SudokuMap.boxIndices[box][2]}" class="cell"></div>
+        </div>
+        <div class="board-row">
+          <div id="CELL_${SudokuMap.boxIndices[box][3]}" class="cell"></div>
+          <div id="CELL_${SudokuMap.boxIndices[box][4]}" class="cell"></div>
+          <div id="CELL_${SudokuMap.boxIndices[box][5]}" class="cell"></div>
+        </div>
+        <div class="board-row">
+          <div id="CELL_${SudokuMap.boxIndices[box][6]}" class="cell"></div>
+          <div id="CELL_${SudokuMap.boxIndices[box][7]}" class="cell"></div>
+          <div id="CELL_${SudokuMap.boxIndices[box][8]}" class="cell"></div>
+        </div>`;
 
     return cellsHTML;
 }
@@ -28,17 +34,24 @@ function fillCellCandidatesType1(cell, candidatesSet)
             candidates[candidate-1] = candidate;
 
     let candidateHTML = `
-    <div class="candidateType1">${candidates[0]}</div>
-    <div class="candidateType1">${candidates[1]}</div>
-    <div class="candidateType1">${candidates[2]}</div>
-    <div class="candidateType1">${candidates[3]}</div>
-    <div class="candidateType1">${candidates[4]}</div>
-    <div class="candidateType1">${candidates[5]}</div>
-    <div class="candidateType1">${candidates[6]}</div>
-    <div class="candidateType1">${candidates[7]}</div>
-    <div class="candidateType1">${candidates[8]}</div>`
+        <div class="board-row">
+          <div class="candidateType1">${candidates[0]}</div>
+          <div class="candidateType1">${candidates[1]}</div>
+          <div class="candidateType1">${candidates[2]}</div>
+        </div>
+        <div class="board-row">
+          <div class="candidateType1">${candidates[3]}</div>
+          <div class="candidateType1">${candidates[4]}</div>
+          <div class="candidateType1">${candidates[5]}</div>
+        </div>
+        <div class="board-row">
+          <div class="candidateType1">${candidates[6]}</div>
+          <div class="candidateType1">${candidates[7]}</div>
+          <div class="candidateType1">${candidates[8]}</div>
+        </div>`;
 
     cellsArray[cell].className = 'cellCandidateType1';
+    cellsArray[cell].innerText  = '';
     cellsArray[cell].innerHTML = candidateHTML;
 }
 
@@ -213,7 +226,7 @@ function cellSetValue(cell, value)
 {
     cellsArray[cell].style.fontSize = "";
     cellsArray[cell].innerHTML = value;
-    cellsArray[cell].className = 'cellDefault';
+    cellsArray[cell].className = 'cell';
 }
 
 // cellData can have the following properties:
@@ -250,11 +263,12 @@ for (let i=0; i<9; i++)
 
 // Add cells to boxes
 {
-    const boxHeight = boxesArray[0].getBoundingClientRect().height
+    // const boxHeight = boxesArray[0].getBoundingClientRect().height
     for (let i = 0; i < 9; i++) {
-        boxesArray[i].innerHTML = generateSudokuCells(i, boxHeight);
+        boxesArray[i].innerHTML = generateSudokuCells(i);
     }
 }
+
 
 // Generate Cells Array
 const cellsArray = [];
@@ -292,7 +306,8 @@ for (let i=0; i<81; i++)
     cellValue = cellValue === "0" ? "" : cellValue;
     cellSetValue(i, cellValue);
 }
-// fillCellCandidatesType1(72, ['','',3,'',5,'',7,8,9])
+
+// // fillCellCandidatesType1(72, ['','',3,'',5,'',7,8,9])
 fillCellCandidatesType1(72, new Set([3,5,7,8,9]))
 fillCellCandidatesType2(73, new Set([1,2,6]))
 fillCellCandidatesType2(74, new Set([1,2,3,4,5,6]))
