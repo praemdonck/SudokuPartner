@@ -1,164 +1,20 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <title>Basic JavaScript module example</title>
 
-<style>
-
-* {
-  box-sizing: border-box;
-}
-
-.main-board {
-    /* box-sizing: content-box; */
-    border: 3px solid black; 
-    padding: 0px; 
-    width: 400px; 
-    height: 400px;
-}
-
-.board-row:after {
-  clear: both;
-  display: table;
-}
-
-.board-row {
-  height: 33.3333%;
-}
-
-
-.box {
-  background: #fff;
-  border: 1px solid black;
-  float: left;
-  height: 100%; 
-  width: 33.33333%;
-}
-
-.cell {
-  background: #fff;
-  border: 0.5px solid grey;
-  float: left;
-  font-size: 24px;
-  line-height: 30px;
-  height: 100%; 
-  text-align: center;
-  width: 33.33333%;
-  font-family: arial;
-  display: inline-flex; 
-  align-items: center; 
-  justify-content: center;
-}
-
-.cellCandidateType1 {
-  background: #fff;
-  border: 0.5px solid grey;
-  float: left;
-  height: 100%;      /* of box row */
-  width: 33.33333%;  /* of box */
-
-}
-.candidateType1 {
-    float: left;
-    height: 100%;      /* of cell row */
-    width: 33.33333%;  /* of cell */
-    font-size: 13px; 
-    line-height: 10px;
-    font-family: arial; 
-
-    display: inline-flex; 
-    align-items: center; 
-    justify-content: center;
-}
-
-
-
-@media only screen and (max-width: 430px) {
-    body {
-        background-color: whitesmoke;
-    }
-    .main-board {
-        width: 97vw;
-        height: 92vw;
-        border: 2px solid black;
-    }
-
-    .cell{
-        border: solid 0.5px grey;
-        font-size: 20px;
-        line-height: 20px;
-    }
-
-    /* .main-board > div {
-        border:0.75px solid black;
-    } */
-
-    .candidateType1 {
-        font-size: 13px; 
-        line-height: 10px;
-    }
-</style>
-
-<title>Sudoku Board</title>
-</head>
-<body id="body">
-    <div style="display: flex; 
-                flex-direction: row; 
-                flex-wrap: wrap; 
-                /* justify-content: center; */
-                /* justify-content: space-around; */
-                justify-content: space-evenly;
-                align-items: center;
-                /* background-color: DodgerBlue; */
-                ">
-        <div id="sudokuBoard" class="main-board">
-            <div class="board-row">
-                <div id="BOX_0" class="box"></div>
-                <div id="BOX_1" class="box"></div>
-                <div id="BOX_2" class="box"></div>
-            </div>
-            <div class="board-row">
-                <div id="BOX_3" class="box"></div>
-                <div id="BOX_4" class="box"></div>
-                <div id="BOX_5" class="box"></div>
-            </div>
-            <div class="board-row">
-                <div id="BOX_6" class="box"></div>
-                <div id="BOX_7" class="box"></div>
-                <div id="BOX_8" class="box"></div>
-            </div>
-        </div>
-
-
-        <div style="width: 600px; 
-                    height: 100px; 
-                    margin: 30px;
-                    border:1px solid black;
-                    display: grid;
-                    gap: 3px;
-                    padding: 3px;
-                    grid-template-columns: auto auto auto auto auto auto auto auto auto;
-                    grid-template-rows: 20% auto;
-                    background-color: yellow;">
-
-            <button id="BTN_1" type="button" style="grid-row: 2;">1</button>
-            <button id="BTN_2" type="button" style="grid-row: 2;">2</button>
-            <button id="BTN_3" type="button" style="grid-row: 2;">3</button>
-            <button id="BTN_4" type="button" style="grid-row: 2;">4</button>
-            <button id="BTN_5" type="button" style="grid-row: 2;">5</button>
-            <button id="BTN_6" type="button" style="grid-row: 2;">6</button>
-            <button id="BTN_7" type="button" style="grid-row: 2;">7</button>
-            <button id="BTN_8" type="button" style="grid-row: 2;">8</button>
-            <button id="BTN_9" type="button" style="grid-row: 2;">9</button>
-        </div>
-    </div>
-
-    <p id="logParagraph">some text</p>
-    <!-- <p id="testString" style=" font-family: arial; font-size: 30px; width:auto; height:auto; position:absolute">123456789</p> -->
-    <!-- <button id="btnRndColor"> Random Color</button> -->
-    <script src="sudoku_map.js"></script>
-    <script src="sudoku_view.js"></script>
-    <script src="sudoku_controller.js"></script>
-
-</body>
-
+    <link rel="stylesheet" href="styles.css">
+    <style>
+      canvas {
+        border: 3px solid red;
+      }
+    </style>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script type="module" src="main.js"></script>
+  </head>
+  <body>
+    <p id="logParagraph">Log Paragraph</p>
+    <p id="logParagraph2">Log Paragraph 2</p>
+  </body>
+</html>
