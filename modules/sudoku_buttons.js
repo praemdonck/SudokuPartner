@@ -15,16 +15,17 @@ class SudokuButtons {
         $(ctrlButtonsDiv).css("margin", "3px");
         $(ctrlButtonsDiv).css("gap", "3px");
 
-        const ctrlButtons = [["Clear",  "clear",  1],
-                             ["Select", "select", 1],
-                             ["Erase",  "erase",  1],
-                             ["X",      "x",      1],
-                             ["Color",  "color",  1],
-                             ["Value",  "value",  2],
+        const ctrlButtons = [["Clear",         "clear",   1],
+                             ["Select",        "select",  1],
+                             ["Erase",         "erase",   1],
+                             ["X",             "x",       1],
+                             ["Color",         "color",   1],
+                             ["Value",         "value",   2],
                              ["Notes Type 1",  "notes1",  2],
                              ["Notes Type 2",  "notes2",  2],
-                             ["Undo",  "undo",  2],
-                             ["Redo",  "redo",  2],
+                             ["Undo",          "undo",    2],
+                             ["Redo",          "redo",    2],
+                             ["Main Menu",     "menu",    2],
                             ];
         
         this.buttonsMap = new Map();

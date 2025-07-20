@@ -10,6 +10,7 @@ class SudokuBoard {
 
         $(this.board).attr("id", "sudokuBoard");
 
+        // Generate the board with the specified size
         $(this.board).css("height", size);
         $(this.board).css("width", size);
         $(this.board).css("position", "relative");
@@ -18,6 +19,7 @@ class SudokuBoard {
         $(this.board).css("border", this.mainBorderWidth+"px solid black");
         $(this.board).css("box-sizing", "border-box");
 
+        // Generate the boxes
         for (let i = 0; i < 3; i++) {
             for (let j = 0; j < 3; j++) {
                 const box = $("<div></div>");
@@ -35,7 +37,9 @@ class SudokuBoard {
             }
         }
 
+        // Array to hold the cells
         this.cellsArray = [];
+        // generate the cells
         for (let i = 0; i < 9; i++) {
             for (let j = 0; j < 9; j++) {
                 const cell = $("<div></div>");
@@ -54,6 +58,7 @@ class SudokuBoard {
             }
         }
 
+        // Register the handlers for mouse and touch events
         $(this.board).on({
             mousemove:  (evt) => {this.mouseHandler(evt);},
             mousedown:  (evt) => {this.mouseHandler(evt);},
@@ -191,6 +196,7 @@ class SudokuBoard {
         $(this.cellsArray[cell]).css("background-color", color);
     }
     
+    // Set notes in a 9x9 grid format
     setCellNotesType1(cell, notesSet)
     {
         if (cell < 0 || cell > 80) {
@@ -223,6 +229,8 @@ class SudokuBoard {
             }
         }
     }
+
+    // Set notes in a single line format
     setCellNotesType2(cell, notesSet)
     {
         if (cell < 0 || cell > 80) {

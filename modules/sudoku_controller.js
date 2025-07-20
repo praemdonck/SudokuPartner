@@ -174,6 +174,11 @@ class SudokuController {
                 break;
             case "redo":
                 break;
+            case "menu":
+                if (typeof this.menuCallback === 'function')
+                    this.menuCallback();
+
+                break;
             default:
                 break;
         }
@@ -184,6 +189,13 @@ class SudokuController {
             console.log("sudoku Controller Button clicked " + buttonId);
             $("#logParagraph2").text("sudoku Controller Button clicked " + buttonId);
         }
+    }
+
+    // buttonClickCallback sample function. 
+    // This function can be replaced by the user with a callback
+    menuCallback = () => {
+        console.log("menuCallBack default handler");
+        $("#logParagraph2").text("menuCallBack default handler");
     }
 
     handleNumberInput(number) {
