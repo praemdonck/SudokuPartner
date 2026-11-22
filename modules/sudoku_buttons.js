@@ -72,10 +72,16 @@ class SudokuButtons {
     }
 
     keyPressHandler(evt) {
-        if (evt.which >= 49 && evt.which <= 57) {
+        // Number keys (1-9) and Keypad numbers (1-9)
+        if ( (evt.which >= 49 && evt.which <= 57) || (evt.which >= 97 && evt.which <= 105) ) {
             this.buttonClickHandler(evt.key);
         }
+        // Arrow keys
         if (evt.which >= 37 && evt.which <= 40) {
+            // console.log("Arrow Key pressed " + evt.key + " (" + evt.shiftKey + ")");
+            // console.log("Arrow Key pressed foo1" + evt.key + " foo2 (" + evt.shiftKey + ")");
+            console.log("foo bar");
+            $("#logParagraph2").text("Arrow Key pressed " + evt.key + " (" + evt.shiftKey + ")");
             this.buttonClickHandler(evt.key);
         }
         else if (evt.which === 69) {  // e -> erase (8 is backspace)

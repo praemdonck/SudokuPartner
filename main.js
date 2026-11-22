@@ -32,6 +32,11 @@ $(document).ready(function(){
             $("#logParagraph2").text("Button clicked (main.js) " + buttonId);
             displayGame();
         }
+        if (buttonId === "load")
+        {
+            $("#logParagraph2").text("Button clicked (main.js) " + buttonId);
+            sudokuController.loadGame(mainMenu.getSelectedSudoku())
+        }
     }
 
     function displayMenu() {
