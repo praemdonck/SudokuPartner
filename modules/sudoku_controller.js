@@ -133,7 +133,7 @@ class SudokuController {
                 break;
             case "select":
                 this.multiSelect = !this.multiSelect;
-                if (sudokuButtons) {
+                if (this.sudokuButtons) {
                     this.sudokuButtons.setButtonBackgroundColor("select", this.multiSelect ? "#ccc" : "");
                 }
                 break;
@@ -145,7 +145,7 @@ class SudokuController {
                 break;
             case "value":
                 this.entryMode = "NORMAL";
-                if (sudokuButtons) {
+                if (this.sudokuButtons) {
                     this.sudokuButtons.setButtonBackgroundColor("value", "#ccc");
                     this.sudokuButtons.setButtonBackgroundColor("notes1", "");
                     this.sudokuButtons.setButtonBackgroundColor("notes2", "");
@@ -153,7 +153,7 @@ class SudokuController {
                 break;
             case "notes1":
                 this.entryMode = "NOTES1";
-                if (sudokuButtons) {
+                if (this.sudokuButtons) {
                     this.sudokuButtons.setButtonBackgroundColor("value", "");
                     this.sudokuButtons.setButtonBackgroundColor("notes1", "#ccc");
                     this.sudokuButtons.setButtonBackgroundColor("notes2", "");
@@ -167,7 +167,7 @@ class SudokuController {
                 break;
             case "notes2":
                 this.entryMode = "NOTES2";
-                if (sudokuButtons) {
+                if (this.sudokuButtons) {
                     this.sudokuButtons.setButtonBackgroundColor("value", "");
                     this.sudokuButtons.setButtonBackgroundColor("notes1", "");
                     this.sudokuButtons.setButtonBackgroundColor("notes2", "#ccc");
@@ -398,9 +398,8 @@ class SudokuController {
     loadGame(sudokuString)
     {
         this.sudokuSolution = SudokuMap.sudokuStringToArray(sudokuString);
-        if (SudokuMap.solveSudoku(this.sudokuSolution) === -1) {
-            this.solutionAvailable = true;
-        }
+        this.solutionAvailable = SudokuMap.solveSudoku(this.sudokuSolution) === -1;
+        this.selectedCellsSet.clear();
 
         for (let i=0; i<81; i++)
         {
@@ -409,6 +408,7 @@ class SudokuController {
             // let cellValue = this.sudokuSolution[i];
 
             this.sudokuCells[i].value = cellValue;
+            this.sudokuCells[i].notes.clear();
             this.sudokuCells[i].cellMode = cellValue === 0 ? CellMode.EMPTY : CellMode.STARTING_CELL;
             // this.sudokuBoard.setCellValue(i, cellValue);
         } 

@@ -72,6 +72,10 @@ class SudokuButtons {
     }
 
     keyPressHandler(evt) {
+        // Ignore keys while the buttons are hidden (e.g. the main menu is showing)
+        if (!$(this.buttons).is(":visible"))
+            return;
+
         // Number keys (1-9) and Keypad numbers (1-9)
         if ( (evt.which >= 49 && evt.which <= 57) || (evt.which >= 97 && evt.which <= 105) ) {
             this.buttonClickHandler(evt.key);
