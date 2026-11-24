@@ -1,9 +1,9 @@
 .cell {
   background: #fff;
   border: 0.5px solid blue;
-  font-size: 24px;
-  line-height: 30px;
-  height: 100%; 
+  /* --cell-size is set by SudokuBoard.resize() */
+  font-size: calc(var(--cell-size, 44px) * 0.54);
+  line-height: 1;
   text-align: center;
   font-family: arial;
   display: inline-flex; 
@@ -12,8 +12,8 @@
 }
 
 .noteType1 {
-    font-size: 13px; 
-    line-height: 10px;
+    font-size: calc(var(--cell-size, 44px) * 0.29);
+    line-height: 1;
     font-family: arial; 
     display: inline-flex; 
     align-items: center; 
@@ -206,4 +206,27 @@ body {
   color: var(--accent-dark);
   background: #fff;
   border-color: var(--accent-mid);
+}
+
+/* Game view: buttons to the right of the board in landscape,
+   below it in portrait */
+.game-area {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.game-area > .buttons-panel {
+  margin-top: 0;
+}
+
+@media (orientation: landscape) {
+  .game-area {
+    flex-direction: row;
+  }
+
+  .game-area > .buttons-panel {
+    margin-top: 20px;
+    margin-left: 0;
+  }
 }

@@ -10,53 +10,38 @@ class SudokuBoard {
 
         $(this.board).attr("id", "sudokuBoard");
 
-        // Generate the board with the specified size
-        $(this.board).css("height", size);
-        $(this.board).css("width", size);
         $(this.board).css("position", "relative");
         $(this.board).css("margin", 20);
-        // $(this.board).css("background-color", "yellow");
         $(this.board).css("border", this.mainBorderWidth+"px solid black");
         $(this.board).css("box-sizing", "border-box");
 
         // Generate the boxes
-        for (let i = 0; i < 3; i++) {
-            for (let j = 0; j < 3; j++) {
-                const box = $("<div></div>");
-                $(box).css("height", size / 3);
-                $(box).css("width", size / 3);
-                $(box).css("position", "absolute");
-                $(box).css("top", -this.mainBorderWidth + (i * size / 3));
-                $(box).css("left", -this.mainBorderWidth + (j * size / 3));
-                // $(box).css("background-color", "WhiteSmoke");
-                $(box).css("border", (this.boxBorderWidth / 2) + "px solid black");
-                $(box).css("box-sizing", "border-box");
-                $(box).css("z-index", -1);
-
-                $(this.board).append(box);
-            }
+        this.boxesArray = [];
+        for (let i = 0; i < 9; i++) {
+            const box = $("<div></div>");
+            $(box).css("position", "absolute");
+            $(box).css("border", (this.boxBorderWidth / 2) + "px solid black");
+            $(box).css("box-sizing", "border-box");
+            $(box).css("z-index", -1);
+            $(this.board).append(box);
+            this.boxesArray.push(box);
         }
 
         // Array to hold the cells
         this.cellsArray = [];
         // generate the cells
-        for (let i = 0; i < 9; i++) {
-            for (let j = 0; j < 9; j++) {
-                const cell = $("<div></div>");
-                $(cell).css("height", size / 9);
-                $(cell).css("width", size / 9);
-                $(cell).css("position", "absolute");
-                $(cell).css("top", -this.mainBorderWidth + (i * size / 9));
-                $(cell).css("left", -this.mainBorderWidth + (j * size / 9));
-                // $(cell).css("background-color", "WhiteSmoke");
-                $(cell).css("border", (this.cellBorderWidth / 2) + "px solid grey");
-                $(cell).css("box-sizing", "border-box");
-                $(cell).css("z-index", -2);
-                $(cell).addClass("cell");
-                $(this.board).append(cell);
-                this.cellsArray.push(cell);
-            }
+        for (let i = 0; i < 81; i++) {
+            const cell = $("<div></div>");
+            $(cell).css("position", "absolute");
+            $(cell).css("border", (this.cellBorderWidth / 2) + "px solid grey");
+            $(cell).css("box-sizing", "border-box");
+            $(cell).css("z-index", -2);
+            $(cell).addClass("cell");
+            $(this.board).append(cell);
+            this.cellsArray.push(cell);
         }
+
+        this.resize(size);
 
         // Register the handlers for mouse and touch events
         $(this.board).on({
@@ -69,6 +54,34 @@ class SudokuBoard {
         });
 
 
+    }
+
+    // Sets the board's size in pixels and lays out boxes and cells to match.
+    // Notes are drawn at the cell size of the moment, so redraw the cell
+    // contents (SudokuController.updateBoard) after calling this.
+    resize(size) {
+        this.size = size;
+        $(this.board).css({height: size, width: size});
+        // Font sizes in styles.css scale with this
+        this.board[0].style.setProperty("--cell-size", (size / 9) + "px");
+
+        for (let i = 0; i < 9; i++) {
+            $(this.boxesArray[i]).css({
+                height: size / 3,
+                width:  size / 3,
+                top:  -this.mainBorderWidth + (Math.floor(i / 3) * size / 3),
+                left: -this.mainBorderWidth + ((i % 3) * size / 3),
+            });
+        }
+
+        for (let i = 0; i < 81; i++) {
+            $(this.cellsArray[i]).css({
+                height: size / 9,
+                width:  size / 9,
+                top:  -this.mainBorderWidth + (Math.floor(i / 9) * size / 9),
+                left: -this.mainBorderWidth + ((i % 9) * size / 9),
+            });
+        }
     }
 
     getCellId(x, y) {
@@ -243,7 +256,8 @@ class SudokuBoard {
         const notes = Array.from(notesSet).toSorted().join('');
 
         const cellWidth = this.cellsArray[cell].width();
-        let fontSize = 15
+        // 15px on a 400px board, scaled with the cell size
+        let fontSize = 15 * cellWidth / (400 / 9);
         if (fontSize * 0.65 * notes.length > cellWidth)
         {
             fontSize = cellWidth / notes.length / 0.65

@@ -17,8 +17,11 @@ $(document).ready(function(){
 
 
     $("body").append(mainMenu.menu);
-    $("body").append(sudokuBoard.board);
-    $("body").append(sudokuButtons.buttons);
+    // Board and buttons share a container that styles.css lays out side by
+    // side in landscape and stacked in portrait
+    const gameArea = $("<div class='game-area'></div>");
+    gameArea.append(sudokuBoard.board, sudokuButtons.buttons);
+    $("body").append(gameArea);
 
     displayMenu(); // Show the main menu initially
 
@@ -41,15 +44,59 @@ $(document).ready(function(){
 
     function displayMenu() {
         mainMenu.menu[0].style.display = "grid";
-        sudokuBoard.board[0].style.display = "none";
-        sudokuButtons.buttons[0].style.display = "none";
+        gameArea[0].style.display = "none";
     }
 
     function displayGame() {
         mainMenu.menu[0].style.display = "none";
-        sudokuBoard.board[0].style.display = "";
-        sudokuButtons.buttons[0].style.display = "grid";
+        gameArea[0].style.display = "";
+        fitGameToWindow();
     }
+
+    // Sizes the board (and in portrait the buttons panel) so the whole game
+    // fits the window without scrolling. Layout direction comes from the
+    // orientation media query in styles.css.
+    const MARGIN = 20;           // board and panel margin
+    const PANEL_WIDTH = 400;     // buttons panel width in landscape
+    const MIN_BOARD = 200;
+    const MAX_BOARD = 700;
+
+    function fitGameToWindow() {
+        const area = gameArea[0];
+        if (area.style.display === "none")
+            return;
+
+        // clientWidth/Height exclude scrollbars; the 8px is body's bottom/right margin
+        const viewW = document.documentElement.clientWidth - 8;
+        const viewH = document.documentElement.clientHeight - 8;
+        const top = area.getBoundingClientRect().top + window.scrollY;
+        const panel = sudokuButtons.buttons;
+        let size;
+
+        if (window.matchMedia("(orientation: landscape)").matches) {
+            panel.css("width", PANEL_WIDTH);
+            const availW = viewW - area.offsetLeft - 2 * MARGIN - PANEL_WIDTH - MARGIN;
+            const availH = viewH - top - 2 * MARGIN;
+            size = Math.min(availW, availH);
+        }
+        else {
+            const availW = viewW - area.offsetLeft - 2 * MARGIN;
+            // The panel's height depends on its width, so measure it at the
+            // widest it can be, then fit the board into what is left
+            panel.css("width", Math.min(availW, MAX_BOARD));
+            const panelH = panel.outerHeight() + MARGIN;
+            const availH = viewH - top - 2 * MARGIN - panelH;
+            size = Math.min(availW, availH);
+        }
+
+        size = Math.floor(Math.max(MIN_BOARD, Math.min(MAX_BOARD, size)));
+        sudokuBoard.resize(size);
+        if (!window.matchMedia("(orientation: landscape)").matches)
+            panel.css("width", size);
+        sudokuController.updateBoard();
+    }
+
+    $(window).on("resize", fitGameToWindow);
 
 
     window.displayGame = displayGame;
