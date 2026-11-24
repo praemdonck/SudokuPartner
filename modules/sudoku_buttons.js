@@ -71,10 +71,32 @@ class SudokuButtons {
         $(this.buttonsMap.get(button)).css("background-color", color);
     }
 
+    setButtonEnabled(button, enabled) {
+        if (!this.buttonsMap.has(button)) {
+            console.log("Invalid button: " + button);
+            return;
+        }
+        $(this.buttonsMap.get(button)).prop("disabled", !enabled);
+    }
+
     keyPressHandler(evt) {
         // Ignore keys while the buttons are hidden (e.g. the main menu is showing)
         if (!$(this.buttons).is(":visible"))
             return;
+
+        // Ctrl+Z -> undo, Ctrl+Y or Ctrl+Shift+Z -> redo (Cmd on macOS)
+        if (evt.ctrlKey || evt.metaKey) {
+            if (evt.which === 90 && !evt.shiftKey) {
+                evt.preventDefault();
+                this.buttonClickHandler("undo");
+            }
+            else if (evt.which === 89 || (evt.which === 90 && evt.shiftKey)) {
+                evt.preventDefault();
+                this.buttonClickHandler("redo");
+            }
+            // Leave other Ctrl shortcuts (copy, reload, ...) to the browser
+            return;
+        }
 
         // Number keys (1-9) and Keypad numbers (1-9)
         if ( (evt.which >= 49 && evt.which <= 57) || (evt.which >= 97 && evt.which <= 105) ) {

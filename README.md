@@ -48,6 +48,10 @@ The board highlights the selected cells, their row, column and box, and any othe
 
 If every selected empty cell already has the note, pressing the number removes it from all of them. Otherwise it adds it to all of them. Starting (given) cells can't be changed.
 
+### Undo and redo
+
+**Undo** reverts your last value or note entry, or your last **Erase**. Press it repeatedly to step further back. **Redo** brings back what you undid. As soon as you enter a new value or note (or erase) after undoing, the undone steps are dropped and Redo is disabled. Loading a puzzle clears the history. Each button is greyed out when there is nothing to undo or redo.
+
 ### Keyboard shortcuts
 
 | Key | Action |
@@ -59,10 +63,12 @@ If every selected empty cell already has the note, pressing the number removes i
 | `V` | Value mode |
 | `N` | Notes Type 1 mode |
 | `M` | Notes Type 2 mode |
+| `Ctrl`+`Z` | Undo |
+| `Ctrl`+`Y` or `Ctrl`+`Shift`+`Z` | Redo |
 
 ### Not implemented yet
 
-The **X**, **Color**, **Undo** and **Redo** buttons are placeholders and don't do anything yet.
+The **X** and **Color** buttons are placeholders and don't do anything yet.
 
 ## Project structure
 

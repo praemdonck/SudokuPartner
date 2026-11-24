@@ -29,7 +29,13 @@ class SudokuController {
             Math.floor(i / 9),
             i % 9,
             0,
-            CellMode.EMPTY)); 
+            CellMode.EMPTY));
+
+        // Undo/redo history. Each entry is a list of {cellIndex, before, after}
+        // cell states, one entry per player action (number input or erase).
+        this.undoStack = [];
+        this.redoStack = [];
+        this.updateUndoRedoButtons();
     }
 
     // selectionFirstCellHander(cellId)
@@ -142,7 +148,7 @@ class SudokuController {
                 }
                 break;
             case "erase":
-                this.deleteCells(this.selectedCellsSet);
+                this.recordChange(() => this.deleteCells(this.selectedCellsSet));
                 this.updateBoard();
                 break;
             case "x":
@@ -184,8 +190,10 @@ class SudokuController {
                 this.updateBoard();
                 break;
             case "undo":
+                this.undo();
                 break;
             case "redo":
+                this.redo();
                 break;
             case "menu":
                 if (typeof this.menuCallback === 'function')
@@ -196,7 +204,7 @@ class SudokuController {
                 break;
         }
         if (buttonId >= 1 && buttonId <= 9) {
-            this.handleNumberInput(buttonId);
+            this.recordChange(() => this.handleNumberInput(buttonId));
         }
         else {
             console.log("sudoku Controller Button clicked " + buttonId);
@@ -255,6 +263,85 @@ class SudokuController {
         this.updateBoard();
     }
 
+
+    // ---- Undo / redo ----
+
+    // Copy of the parts of a cell that the player can change
+    getCellState(cellIndex) {
+        const cell = this.sudokuCells[cellIndex];
+        return {value: cell.value, cellMode: cell.cellMode, notes: new Set(cell.notes)};
+    }
+
+    setCellState(cellIndex, state) {
+        const cell = this.sudokuCells[cellIndex];
+        cell.value = state.value;
+        cell.cellMode = state.cellMode;
+        cell.notes = new Set(state.notes);
+    }
+
+    static sameCellState(a, b) {
+        if (a.value !== b.value || a.cellMode !== b.cellMode || a.notes.size !== b.notes.size)
+            return false;
+        for (const note of a.notes) {
+            if (!b.notes.has(note))
+                return false;
+        }
+        return true;
+    }
+
+    // Runs action (which changes cells) and saves the cells it changed as
+    // one undo step. A new change makes the undone steps unreachable, so
+    // the redo history is dropped. Actions that change nothing are not saved.
+    recordChange(action) {
+        const before = this.sudokuCells.map((cell, i) => this.getCellState(i));
+        action();
+
+        const changes = [];
+        for (let i = 0; i < 81; i++) {
+            const after = this.getCellState(i);
+            if (!SudokuController.sameCellState(before[i], after))
+                changes.push({cellIndex: i, before: before[i], after: after});
+        }
+
+        if (changes.length > 0) {
+            this.undoStack.push(changes);
+            this.redoStack = [];
+            this.updateUndoRedoButtons();
+        }
+    }
+
+    undo() {
+        const changes = this.undoStack.pop();
+        if (changes === undefined)
+            return;
+        changes.forEach(change => this.setCellState(change.cellIndex, change.before));
+        this.redoStack.push(changes);
+        this.updateUndoRedoButtons();
+        this.updateBoard();
+    }
+
+    redo() {
+        const changes = this.redoStack.pop();
+        if (changes === undefined)
+            return;
+        changes.forEach(change => this.setCellState(change.cellIndex, change.after));
+        this.undoStack.push(changes);
+        this.updateUndoRedoButtons();
+        this.updateBoard();
+    }
+
+    clearHistory() {
+        this.undoStack = [];
+        this.redoStack = [];
+        this.updateUndoRedoButtons();
+    }
+
+    updateUndoRedoButtons() {
+        if (this.sudokuButtons) {
+            this.sudokuButtons.setButtonEnabled("undo", this.undoStack.length > 0);
+            this.sudokuButtons.setButtonEnabled("redo", this.redoStack.length > 0);
+        }
+    }
 
     setValue(cells, value) {
         cells.forEach(cellIndex => {
@@ -415,8 +502,9 @@ class SudokuController {
             this.sudokuCells[i].notes.clear();
             this.sudokuCells[i].cellMode = cellValue === 0 ? CellMode.EMPTY : CellMode.STARTING_CELL;
             // this.sudokuBoard.setCellValue(i, cellValue);
-        } 
+        }
 
+        this.clearHistory();
         this.updateBoard();
     }
 }
