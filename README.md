@@ -34,6 +34,7 @@ When a puzzle loads, the built-in solver works out the solution. Any value you e
 - **Drag** across cells to select several at once.
 - Turn on **Select** (multi-select) to add cells to the selection one click at a time. In this mode, clicking a selected cell (or dragging from one) deselects cells.
 - **Arrow keys** move the selection around the grid.
+- **Clear** deselects all cells. It doesn't change any values or notes.
 
 The board highlights the selected cells, their row, column and box, and any other cells (or notes) with the same value as the selected cell.
 
@@ -61,7 +62,7 @@ If every selected empty cell already has the note, pressing the number removes i
 
 ### Not implemented yet
 
-The **Clear**, **X**, **Color**, **Undo** and **Redo** buttons are placeholders and don't do anything yet.
+The **X**, **Color**, **Undo** and **Redo** buttons are placeholders and don't do anything yet.
 
 ## Project structure
 

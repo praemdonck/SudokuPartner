@@ -29,4 +29,4 @@ Verify changes by loading the page in a browser. `main.js` puts `sudokuControlle
 ## Notes
 
 - `modules/canvas.js` and `modules/square.js` are leftover module-learning examples, not used by the game. `trash.txt` (untracked) is scratch HTML.
-- The Clear, X, Color, Undo and Redo buttons are placeholders with no behavior yet.
+- The X, Color, Undo and Redo buttons are placeholders with no behavior yet.

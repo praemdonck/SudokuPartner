@@ -130,6 +130,10 @@ class SudokuController {
                 this.selectionFirstCellHander(nextCell);
                 break;
             case "clear":
+                // Deselect all cells (cell values and notes are left alone)
+                this.selectedCellsSet.clear();
+                this.deSelect = false;
+                this.updateBoard();
                 break;
             case "select":
                 this.multiSelect = !this.multiSelect;
