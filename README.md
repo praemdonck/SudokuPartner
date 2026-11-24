@@ -70,7 +70,8 @@ index.html                 Page shell; loads jQuery and main.js
 styles.css                 Cell and note styling
 main.js                    Entry point: creates the components, wires callbacks, switches views
 modules/
-  main_menu.js             MainMenu: Start/Load buttons and the puzzle dropdown
+  main_menu.js             MainMenu: Start/Load buttons, puzzle dropdown, Save Sudoku form
+  sudoku_store.js          SudokuStore: saved puzzle list in localStorage, plus the built-in puzzles
   sudoku_board.js          SudokuBoard: draws the 9×9 grid, handles mouse/touch selection
   sudoku_buttons.js        SudokuButtons: control and number buttons, keyboard input
   sudoku_controller.js     SudokuController: game state, input modes, highlighting
@@ -93,7 +94,7 @@ A puzzle is an 81-character string read row by row, with `0` for an empty cell:
 863100207020070800507802090008200079706000528290780300080627401672010980000008762
 ```
 
-To add puzzles, append entries to the `options` array in [modules/main_menu.js](modules/main_menu.js).
+To add a puzzle, type a name and its 81-digit string into the main menu and click **Save Sudoku**. Saved puzzles are kept in the browser's `localStorage` under the key `sudoku.savedGames`, so they last across reloads but stay in that one browser and are lost if you clear its site data. The built-in puzzles in [modules/sudoku_store.js](modules/sudoku_store.js) are used the first time the app runs, or if the stored list is missing or corrupted.
 
 ### Solver
 
