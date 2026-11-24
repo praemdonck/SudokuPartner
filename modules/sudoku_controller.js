@@ -22,7 +22,7 @@ class SudokuController {
 
         this.entryMode = "NORMAL"; // NORMAL, NOTES1, NOTES2 
         if (sudokuButtons) {
-            this.sudokuButtons.setButtonBackgroundColor("value", "#ccc");
+            this.sudokuButtons.setButtonActive("value", true);
         }
 
         this.sudokuCells = Array.from({ length: 9 * 9 }, (v, i) => new Cell(
@@ -144,7 +144,7 @@ class SudokuController {
             case "select":
                 this.multiSelect = !this.multiSelect;
                 if (this.sudokuButtons) {
-                    this.sudokuButtons.setButtonBackgroundColor("select", this.multiSelect ? "#ccc" : "");
+                    this.sudokuButtons.setButtonActive("select", this.multiSelect);
                 }
                 break;
             case "erase":
@@ -156,17 +156,17 @@ class SudokuController {
             case "value":
                 this.entryMode = "NORMAL";
                 if (this.sudokuButtons) {
-                    this.sudokuButtons.setButtonBackgroundColor("value", "#ccc");
-                    this.sudokuButtons.setButtonBackgroundColor("notes1", "");
-                    this.sudokuButtons.setButtonBackgroundColor("notes2", "");
+                    this.sudokuButtons.setButtonActive("value", true);
+                    this.sudokuButtons.setButtonActive("notes1", false);
+                    this.sudokuButtons.setButtonActive("notes2", false);
                 }
                 break;
             case "notes1":
                 this.entryMode = "NOTES1";
                 if (this.sudokuButtons) {
-                    this.sudokuButtons.setButtonBackgroundColor("value", "");
-                    this.sudokuButtons.setButtonBackgroundColor("notes1", "#ccc");
-                    this.sudokuButtons.setButtonBackgroundColor("notes2", "");
+                    this.sudokuButtons.setButtonActive("value", false);
+                    this.sudokuButtons.setButtonActive("notes1", true);
+                    this.sudokuButtons.setButtonActive("notes2", false);
                 }
                 for (const cell of this.selectedCellsSet) {
                     if (this.sudokuCells[cell].cellMode === CellMode.NOTES_2) {
@@ -178,9 +178,9 @@ class SudokuController {
             case "notes2":
                 this.entryMode = "NOTES2";
                 if (this.sudokuButtons) {
-                    this.sudokuButtons.setButtonBackgroundColor("value", "");
-                    this.sudokuButtons.setButtonBackgroundColor("notes1", "");
-                    this.sudokuButtons.setButtonBackgroundColor("notes2", "#ccc");
+                    this.sudokuButtons.setButtonActive("value", false);
+                    this.sudokuButtons.setButtonActive("notes1", false);
+                    this.sudokuButtons.setButtonActive("notes2", true);
                 }
                 for (const cell of this.selectedCellsSet) {
                     if (this.sudokuCells[cell].cellMode === CellMode.NOTES_1) {

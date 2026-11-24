@@ -1,54 +1,49 @@
 class SudokuButtons {
 
     constructor(width = 400) {
+        // Look and layout come from the .panel / .btn* classes in styles.css
         this.buttons = $("<div></div>");
-        $(this.buttons).css("height", "100px");
+        $(this.buttons).addClass("panel buttons-panel");
         $(this.buttons).css("width", width);
 
-        $(this.buttons).css("margin", "20px");
-        $(this.buttons).css("border", "1px solid black");
-        $(this.buttons).css("background-color", "yellow");
-        $(this.buttons).css("display", "grid");
-
-        const ctrlButtonsDiv = $("<div></div>");
-        $(ctrlButtonsDiv).css("display", "grid");
-        $(ctrlButtonsDiv).css("margin", "3px");
-        $(ctrlButtonsDiv).css("gap", "3px");
-
+        // [label, id, row]. "Main Menu" gets the "menu" style.
         const ctrlButtons = [["Clear",         "clear",   1],
                              ["Select",        "select",  1],
                              ["Erase",         "erase",   1],
                              ["X",             "x",       1],
                              ["Color",         "color",   1],
                              ["Value",         "value",   2],
-                             ["Notes Type 1",  "notes1",  2],
-                             ["Notes Type 2",  "notes2",  2],
-                             ["Undo",          "undo",    2],
-                             ["Redo",          "redo",    2],
-                             ["Main Menu",     "menu",    2],
+                             ["Notes 1",       "notes1",  2],
+                             ["Notes 2",       "notes2",  2],
+                             ["Undo",          "undo",    3],
+                             ["Redo",          "redo",    3],
+                             ["Main Menu",     "menu",    3],
                             ];
-        
+
         this.buttonsMap = new Map();
+        const rows = new Map();
 
         for (const btn of ctrlButtons) {
+            if (!rows.has(btn[2])) {
+                const row = $("<div></div>").addClass("btn-row");
+                rows.set(btn[2], row);
+                $(this.buttons).append(row);
+            }
             const button = $("<button></button>");
-            $(button).css("grid-row", btn[2]);
+            $(button).addClass("btn");
+            if (btn[1] === "menu")
+                $(button).addClass("btn-menu");
             $(button).text(btn[0]);
             $(button).click(() => this.buttonClickHandler(btn[1]));
-            $(ctrlButtonsDiv).append(button); 
+            $(rows.get(btn[2])).append(button);
             this.buttonsMap.set(btn[1], button);
         }
 
-        $(this.buttons).append(ctrlButtonsDiv);
-
-        const numButtons = $("<div></div>");
-        $(numButtons).css("display", "grid");
-        $(numButtons).css("margin", "3px");
-        $(numButtons).css("gap", "3px");
+        const numButtons = $("<div></div>").addClass("btn-row num-row");
 
         for (let i = 1; i <= 9; i++) {
             const button = $("<button></button>");
-            $(button).css("grid-row", "1");
+            $(button).addClass("btn btn-num");
             $(button).text(i);
             $(button).click(() => this.buttonClickHandler(i.toString()));
             $(numButtons).append(button);
@@ -63,12 +58,13 @@ class SudokuButtons {
 
     }
 
-    setButtonBackgroundColor(button, color) {
+    // Highlights a toggle button (Select, Value, Notes) as switched on
+    setButtonActive(button, active) {
         if (!this.buttonsMap.has(button)) {
             console.log("Invalid button: " + button);
             return;
         }
-        $(this.buttonsMap.get(button)).css("background-color", color);
+        $(this.buttonsMap.get(button)).toggleClass("active", active);
     }
 
     setButtonEnabled(button, enabled) {

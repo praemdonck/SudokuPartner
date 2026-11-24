@@ -43,8 +43,8 @@ The board highlights the selected cells, their row, column and box, and any othe
 | Mode | What a number does |
 |------|--------------------|
 | **Value** (default) | With one cell selected, sets its value. With several selected, toggles that number as a note in the empty ones. |
-| **Notes Type 1** | Toggles a note, shown as a 3×3 grid of small digits inside the cell. |
-| **Notes Type 2** | Toggles a note, shown as a single line of digits (e.g. `1479`). |
+| **Notes 1** | Toggles a note, shown as a 3×3 grid of small digits inside the cell. |
+| **Notes 2** | Toggles a note, shown as a single line of digits (e.g. `1479`). |
 
 If every selected empty cell already has the note, pressing the number removes it from all of them. Otherwise it adds it to all of them. Starting (given) cells can't be changed.
 
@@ -61,8 +61,8 @@ If every selected empty cell already has the note, pressing the number removes i
 | `E` | Erase selected cells |
 | `S` | Toggle multi-select |
 | `V` | Value mode |
-| `N` | Notes Type 1 mode |
-| `M` | Notes Type 2 mode |
+| `N` | Notes 1 mode |
+| `M` | Notes 2 mode |
 | `Ctrl`+`Z` | Undo |
 | `Ctrl`+`Y` or `Ctrl`+`Shift`+`Z` | Redo |
 
@@ -74,7 +74,7 @@ The **X** and **Color** buttons are placeholders and don't do anything yet.
 
 ```
 index.html                 Page shell; loads jQuery and main.js
-styles.css                 Cell and note styling
+styles.css                 Cell, note, menu and button styling (teal theme)
 main.js                    Entry point: creates the components, wires callbacks, switches views
 modules/
   main_menu.js             MainMenu: Start/Load buttons, puzzle dropdown, Save Sudoku form

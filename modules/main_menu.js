@@ -3,41 +3,33 @@ import { SudokuStore } from './sudoku_store.js';
 class MainMenu {
 
     constructor(width = 400) {
+        // Look and layout come from the .panel / .menu-* / .btn* classes in styles.css
         this.menu = $("<div></div>");
         $(this.menu).attr("id", "mainMenu");
+        $(this.menu).addClass("panel main-menu");
         $(this.menu).css("width", width);
 
-        $(this.menu).css("margin", "20px");
-        $(this.menu).css("border", "1px solid black");
-        $(this.menu).css("background-color", "yellow");
-        $(this.menu).css("display", "grid");
-        // $(this.menu).css("margin", "3px");
-        $(this.menu).css("gap", "3px");
-
-        // const menuDiv = $("<div></div>");
-        // $(menuDiv).css("display", "grid");
-        // $(menuDiv).css("margin", "3px");
-        // $(menuDiv).css("gap", "3px");
+        $(this.menu).append($("<h1></h1>").addClass("menu-title").text("Sudoku"));
 
         const button1 = $("<button></button>");
-        $(button1).css("grid-row", 1);
+        $(button1).addClass("btn btn-primary btn-large");
         $(button1).text("Start Game");
-        $(button1).css("margin", "3px");
         $(button1).click(() => this.buttonClickHandler("start"));
-        $(this.menu).append(button1); 
+        $(this.menu).append(button1);
+
+        // Puzzle picker: dropdown with the saved sudokus (see sudoku_store.js) + Load
+        $(this.menu).append($("<h2></h2>").addClass("menu-heading").text("Choose a puzzle"));
+
+        this.select = $("<select></select>");
+        $(this.select).addClass("field");
+        this.refreshSudokuList();
 
         const button2 = $("<button></button>");
-        $(button2).css("grid-row", 2);
-        $(button2).css("margin", "3px");
+        $(button2).addClass("btn");
         $(button2).text("Load Game");
         $(button2).click(() => this.buttonClickHandler("load"));
-        $(this.menu).append(button2); 
 
-        // Dropdown with the saved sudokus (see sudoku_store.js)
-        this.select = $("<select></select>");
-        $(this.select).css("margin", "3px");
-        $(this.menu).append(this.select);
-        this.refreshSudokuList();
+        $(this.menu).append($("<div></div>").addClass("menu-row").append(this.select, button2));
 
         $(this.select).change(function() {
             const selectedDifficulty = $(this).val();
@@ -47,17 +39,17 @@ class MainMenu {
 
         // Controls to save a new sudoku
         const nameInput = $("<input>");
+        $(nameInput).addClass("field");
         $(nameInput).attr("placeholder", "Name");
-        $(nameInput).css("margin", "3px");
 
         const puzzleInput = $("<input>");
+        $(puzzleInput).addClass("field field-mono");
         $(puzzleInput).attr("placeholder", "81 digits, 0 = empty");
         $(puzzleInput).attr("maxlength", 81);
-        $(puzzleInput).css("margin", "3px");
 
         const saveButton = $("<button></button>");
+        $(saveButton).addClass("btn");
         $(saveButton).text("Save Sudoku");
-        $(saveButton).css("margin", "3px");
         $(saveButton).click(() => {
             const name = $(nameInput).val().trim() || "Untitled";
             const puzzle = $(puzzleInput).val().trim();
@@ -73,7 +65,10 @@ class MainMenu {
             $(puzzleInput).val("");
         });
 
-        $(this.menu).append(nameInput, puzzleInput, saveButton);
+        $(this.menu).append(
+            $("<h2></h2>").addClass("menu-heading").text("Add a puzzle"),
+            $("<div></div>").addClass("menu-row").append(nameInput, saveButton),
+            puzzleInput);
 
         // const ctrlButtons = [["Clear",  "clear",  1],
         //                      ["Select", "select", 1],
